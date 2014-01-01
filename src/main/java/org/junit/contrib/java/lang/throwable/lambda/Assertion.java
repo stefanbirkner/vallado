@@ -14,7 +14,7 @@ package org.junit.contrib.java.lang.throwable.lambda;
  * }
  *
  * public class YourClassTest {
- *   @Test
+ *   &#064;Test
  *   public void throwsException() {
  *     YourClass theObject = new YourClass();
  *     an(IllegalStateException.class).shouldBeThrownBy(() -> theObject.methodThrowsException());
