@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
@@ -9,12 +10,14 @@
     </parent>
     <groupId>com.github.stefanbirkner</groupId>
     <artifactId>vallado</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.1.0</version>
     <packaging>jar</packaging>
     <name>vallado</name>
-    <description>A library that supports testing exceptions with JUnit and Java 8 Lambdas.</description>
+    <description>A library that supports testing exceptions with Java 8 Lambdas. Can be used with
+        JUnit and with TestNG.
+    </description>
     <url>http://stefanbirkner.github.io/vallado/</url>
-    <inceptionYear>2013</inceptionYear>
+    <inceptionYear>2014</inceptionYear>
     <licenses>
         <license>
             <name>Eclipse Public License 1.0</name>
@@ -22,6 +25,15 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
+    <developers>
+        <developer>
+            <id>stefanbirkner</id>
+            <name>Stefan Birkner</name>
+            <email>mail@stefan-birkner.de</email>
+            <url>http://www.stefan-birkner.de</url>
+            <timezone>+1</timezone>
+        </developer>
+    </developers>
     <scm>
         <connection>scm:git:git://github.com/stefanbirkner/vallado.git</connection>
         <developerConnection>scm:git:git@github.com:stefanbirkner/vallado.git</developerConnection>
@@ -40,8 +52,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.1</version>
                 <configuration>
-                    <source>1.5</source>
-                    <target>1.5</target>
+                    <source>1.6</source>
+                    <target>1.6</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -74,18 +86,19 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>[4.11,)</version>
+            <version>4.11</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest-core</artifactId>
-            <version>[1.3,)</version>
+            <version>1.3</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest-library</artifactId>
-            <version>[1.3,)</version>
+            <version>1.3</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
