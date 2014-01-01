@@ -1,4 +1,4 @@
-package org.junit.contrib.java.lang.throwable.lambda;
+package org.junit.contrib.java.lang.throwable;
 
 /**
  * Code that should be executed by {@link Expectations}. This code could throw a {@link Throwable}.
@@ -11,5 +11,4 @@ public interface Statement {
      * @throws Throwable the statement may throw an arbitrary exception.
      */
     void evaluate() throws Throwable;
-
 }

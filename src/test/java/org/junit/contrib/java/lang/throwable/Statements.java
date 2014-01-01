@@ -1,7 +1,7 @@
-package org.junit.contrib.java.lang.throwable.lambda;
+package org.junit.contrib.java.lang.throwable;
 
 /**
- * Some {@link Statement}s that are used by different tests.
+ * Some {@link org.junit.contrib.java.lang.throwable.Statement}s that are used by different tests.
  */
 public enum Statements implements Statement {
     STATEMENT_THROWING_EXCEPTION {

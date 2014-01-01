@@ -1,9 +1,11 @@
-package org.junit.contrib.java.lang.throwable.lambda;
+package org.junit.contrib.java.lang.throwable;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import static org.hamcrest.Matchers.instanceOf;
+import static org.hamcrest.Matchers.is;
 import static org.junit.rules.ExpectedException.none;
 
 public class ExpectExceptionTypeTest {
@@ -17,20 +19,31 @@ public class ExpectExceptionTypeTest {
     }
 
     @Test
+    public void isValidWithAdditionalExpectation() {
+        Expectations expectations = new ExpectExceptionType(Exception.class)
+                .that(is(instanceOf(Exception.class)));
+        expectations.shouldBeThrownBy(Statements.STATEMENT_THROWING_EXCEPTION);
+    }
+
+    @Test
     public void failsForMissingException() {
         ExpectExceptionType expectExceptionType = new ExpectExceptionType(Exception.class);
-        thrown.handleAssertionErrors();
         thrown.expect(AssertionError.class);
-        thrown.expectMessage("No exception has been thrown.");
         expectExceptionType.shouldBeThrownBy(Statements.STATEMENT_THROWING_NO_EXCEPTION);
     }
 
     @Test
     public void failsForWrongType() {
         ExpectExceptionType expectExceptionType = new ExpectExceptionType(RuntimeException.class);
-        thrown.handleAssertionErrors();
         thrown.expect(AssertionError.class);
-        thrown.expectMessage("Wrong type of exception has been thrown. Expected: <java.lang.RuntimeException> but was: <java.lang.Exception>");
         expectExceptionType.shouldBeThrownBy(Statements.STATEMENT_THROWING_EXCEPTION);
+    }
+
+    @Test
+    public void failsForAdditionalExpectation() {
+        Expectations expectations = new ExpectExceptionType(Exception.class)
+                .that(is(instanceOf(NullPointerException.class)));
+        thrown.expect(AssertionError.class);
+        expectations.shouldBeThrownBy(Statements.STATEMENT_THROWING_EXCEPTION);
     }
 }

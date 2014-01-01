@@ -1,4 +1,4 @@
-package org.junit.contrib.java.lang.throwable.lambda;
+package org.junit.contrib.java.lang.throwable;
 
 /**
  * Vallado is a Java 8 library that helps you to test that your code throws the right exceptions. It
@@ -33,11 +33,18 @@ package org.junit.contrib.java.lang.throwable.lambda;
  * {@link #anException()}, which is nicer to read. You can test for a specific type of exception,
  * too. Use {@link #a(Class)} or {@link #an(Class)} like in the introduction's example. Both methods
  * are equivalent. They exist because of English grammar.
+ * <p>Now you can add additional expectations. Every expectation must be a hamcrest matcher.
+ * <pre>
+ *   an(IllegalStateException.class)
+ *     .that(hasProperty("message", equalTo("wrongState"))
+ *     .and(hasProperty("cause", is(nullValue()))
+ *     .shouldBeThrownBy(() -> theObject.methodThrowsException());
+ * </pre>
  *
  * <h4>Verify your code</h4>
  * <p>After specifying the expectations about the exception you have an object that has a
  * {@code shouldBeThrownBy} method. Call this methods with the
- * {@link org.junit.contrib.java.lang.throwable.lambda.Statement} that should throw the
+ * {@link Statement} that should throw the
  * exception. You can use a lambda expression.
  *
  * <pre>
@@ -50,7 +57,7 @@ public class Assertion {
      * {@link #an(Class)}. The second method only exists becuase of English grammar.)
      * @param exceptionType the {@link java.lang.Throwable}'s type.
      */
-    public static Expectations a(Class<? extends Throwable> exceptionType) {
+    public static ExpectExceptionType a(Class<? extends Throwable> exceptionType) {
         return new ExpectExceptionType(exceptionType);
     }
 
@@ -59,21 +66,21 @@ public class Assertion {
      * {@link #a(Class)}. The second method only exists becuase of English grammar.)
      * @param exceptionType the {@link java.lang.Throwable}'s type.
      */
-    public static Expectations an(Class<? extends Throwable> exceptionType) {
+    public static ExpectExceptionType an(Class<? extends Throwable> exceptionType) {
         return a(exceptionType);
     }
 
     /**
      * Expect an arbitrary {@link java.lang.Throwable}.
      */
-    public static Expectations aThrowable() {
+    public static ExpectExceptionType aThrowable() {
         return a(Throwable.class);
     }
 
     /**
      * Expect an arbitrary {@link java.lang.Exception}.
      */
-    public static Expectations anException() {
+    public static ExpectExceptionType anException() {
         return an(Exception.class);
     }
 }
