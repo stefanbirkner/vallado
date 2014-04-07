@@ -7,6 +7,8 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import static org.hamcrest.Matchers.not;
+import static org.junit.contrib.java.lang.throwable.Statements.STATEMENT_THROWING_EXCEPTION;
+import static org.junit.contrib.java.lang.throwable.Statements.STATEMENT_THROWING_NO_EXCEPTION;
 import static org.junit.rules.ExpectedException.none;
 
 public class ExpectationsTest {
@@ -21,49 +23,49 @@ public class ExpectationsTest {
     };
 
     @Rule
-    public ExpectedException thrown = none();
+    public final ExpectedException thrown = none();
 
     @Test
     public void isValidForCorrectType() {
-        Expectations expectations = new Expectations(Exception.class);
-        expectations.shouldBeThrownBy(Statements.STATEMENT_THROWING_EXCEPTION);
+        Expectations expectations = new Expectations(STATEMENT_THROWING_EXCEPTION, Exception.class);
+        expectations.isThrown();
     }
 
     @Test
     public void isValidWithAdditionalExpectation() {
-        Expectations expectations = new Expectations(Exception.class).and(IS_THE_DUMMY_EXCEPTION);
-        expectations.shouldBeThrownBy(THROW_DUMMY_EXCEPTION);
+        Expectations expectations = new Expectations(THROW_DUMMY_EXCEPTION, Exception.class).and(IS_THE_DUMMY_EXCEPTION);
+        expectations.isThrown();
     }
 
     @Test
     public void failsForMissingException() {
-        Expectations expectations = new Expectations(Exception.class);
+        Expectations expectations = new Expectations(STATEMENT_THROWING_NO_EXCEPTION, Exception.class);
         thrown.expect(AssertionError.class);
         thrown.expectMessage("No exception has been thrown.");
-        expectations.shouldBeThrownBy(Statements.STATEMENT_THROWING_NO_EXCEPTION);
+        expectations.isThrown();
     }
 
     @Test
     public void failsForWrongType() {
-        Expectations expectations = new Expectations(RuntimeException.class);
+        Expectations expectations = new Expectations(STATEMENT_THROWING_EXCEPTION, RuntimeException.class);
         thrown.expect(AssertionError.class);
         thrown.expectMessage("The code threw a wrong exception.\nExpected: (an instance of java.lang.RuntimeException)\n" +
                 "     but: an instance of java.lang.RuntimeException <java.lang.Exception> is a java.lang.Exception");
-        expectations.shouldBeThrownBy(Statements.STATEMENT_THROWING_EXCEPTION);
+        expectations.isThrown();
     }
 
     @Test
     public void failsForAdditionalExpectation() {
-        Expectations expectations = new Expectations(Exception.class).and(not(IS_THE_DUMMY_EXCEPTION));
+        Expectations expectations = new Expectations(THROW_DUMMY_EXCEPTION, Exception.class).and(not(IS_THE_DUMMY_EXCEPTION));
         thrown.expect(AssertionError.class);
-        expectations.shouldBeThrownBy(THROW_DUMMY_EXCEPTION);
+        expectations.isThrown();
     }
 
     @Test
     public void isNotAffectedByOriginalExpectations() {
-        Expectations originalExpectations = new Expectations(Exception.class);
+        Expectations originalExpectations = new Expectations(THROW_DUMMY_EXCEPTION, Exception.class);
         Expectations derivedExpectations = originalExpectations.and(IS_THE_DUMMY_EXCEPTION);
         originalExpectations.and(not(IS_THE_DUMMY_EXCEPTION)); //try to modify original expectation
-        derivedExpectations.shouldBeThrownBy(THROW_DUMMY_EXCEPTION);
+        derivedExpectations.isThrown();
     }
 }

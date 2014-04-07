@@ -3,6 +3,7 @@ package org.junit.contrib.java.lang.throwable;
 import org.hamcrest.Matcher;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.allOf;
@@ -10,29 +11,36 @@ import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
- * An {@code Expectations} object encapsulates a user's assumption about an exception that should
- * be thrown. The user starts by creating an {@code Expectations} object with the exception's type
- * and adds further expectations with {@link #and(org.hamcrest.Matcher)}. Each expectation is a
+ * An {@code Expectations} object encapsulates a piece of code and a user's assumption about an
+ * exception that should be thrown by this code. The user starts by creating an
+ * {@code Expectations} object with a {@link org.junit.contrib.java.lang.throwable.Statement} and
+ * the exception's type. Afterwards she adds further expectations with
+ * {@link #and(org.hamcrest.Matcher)}. Each expectation is a
  * {@link org.hamcrest.Matcher Hamcrest Matcher}.
- *
- * <p>If the expectations are completely defined you can verify that a {@link Statement} throws an
- * exception that matches this expectations.
+ * <p>
+ * <p>If the expectations are completely defined you call {@link #isThrown()}. Now the
+ * {@code Expectations} verifies that the {@link Statement} throws an exception that matches the
+ * expectations.
  */
 public class Expectations {
     private final List<Matcher<? super Throwable>> matchers;
+    private final Statement statement;
 
     /**
-     * Create an {@code Expectations} that expects an exception of the specified type.
+     * Create an {@code Expectations} that expects an exception of the specified type to be thrown by the
+     * {@link org.junit.contrib.java.lang.throwable.Statement}.
      *
-     * @param type the expected exception's type.
+     * @param statement the piece of code that should throw an exception.
+     * @param type      the expected exception's type.
      */
-    public Expectations(Class<? extends Throwable> type) {
-        this.matchers = new ArrayList<Matcher<? super Throwable>>();
-        this.matchers.add(instanceOf(type));
+    public Expectations(Statement statement, Class<? extends Throwable> type) {
+        this.statement = statement;
+        this.matchers = Collections.<Matcher<? super Throwable>>singletonList(instanceOf(type));
     }
 
     private Expectations(Expectations baseExpectations,
                          Matcher<? super Throwable> additionalExpectation) {
+        this.statement = baseExpectations.statement;
         this.matchers = new ArrayList<Matcher<? super Throwable>>(baseExpectations.matchers);
         this.matchers.add(additionalExpectation);
     }
@@ -49,20 +57,16 @@ public class Expectations {
 
     /**
      * Verifies that the statement throws a {@link java.lang.Throwable} that's equal to the user's
-     * assumption. Therefore the statement is executed. It is expected to use a lambda expression
-     * <pre>
-     *     expectedException.shouldBeThrownBy(() -> objectUnderTest.doesSomething());
-     * </pre>
+     * assumption. Therefore the statement is executed.
      *
-     * @param statement an arbitrary piece of code.
      * @throws java.lang.AssertionError if the statement throws a {@link java.lang.Throwable} that's
      *                                  different from the user's assumption.
      */
-    public void shouldBeThrownBy(Statement statement) {
-        failIfStatementThrowsWrongOrNoException(statement);
+    public void isThrown() {
+        failIfStatementThrowsWrongOrNoException();
     }
 
-    private void failIfStatementThrowsWrongOrNoException(Statement statement) {
+    private void failIfStatementThrowsWrongOrNoException() {
         try {
             statement.evaluate();
         } catch (Throwable throwable) {
