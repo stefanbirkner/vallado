@@ -79,8 +79,8 @@ public class When {
      *
      * @param exceptionType the {@link java.lang.Throwable}'s type.
      */
-    public Expectations thenA(Class<? extends Throwable> exceptionType) {
-        return new Expectations(statement, exceptionType);
+    public ExpectExceptionType thenA(Class<? extends Throwable> exceptionType) {
+        return new ExpectExceptionType(statement, exceptionType);
     }
 
     /**
@@ -89,21 +89,21 @@ public class When {
      *
      * @param exceptionType the {@link java.lang.Throwable}'s type.
      */
-    public Expectations thenAn(Class<? extends Throwable> exceptionType) {
+    public ExpectExceptionType thenAn(Class<? extends Throwable> exceptionType) {
         return thenA(exceptionType);
     }
 
     /**
      * Expect an arbitrary {@link java.lang.Throwable}.
      */
-    public Expectations aThrowable() {
+    public ExpectExceptionType aThrowable() {
         return thenA(Throwable.class);
     }
 
     /**
      * Expect an arbitrary {@link java.lang.Exception}.
      */
-    public Expectations anException() {
+    public ExpectExceptionType anException() {
         return thenAn(Exception.class);
     }
 }
