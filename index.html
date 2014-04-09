@@ -1,0 +1,45 @@
+---
+layout: index
+title: Vallado 
+description: A library that supports exception testing with Java 8 Lambdas. Can be used with JUnit and TestNG.
+---
+<p>An example is worth a thousand words.</p>
+{% highlight java %}when(() -> throw new RuntimeException())
+  .thenA(RuntimeException.class)
+  .isThrown();{% endhighlight %}
+
+<h2>How to use Vallado</h2>
+<p>1. Import the <code>when</code> method.</p>
+{% highlight java %}import static org.junit.contrib.java.lang.throwable.When.when;{% endhighlight %}
+
+<p>2. Enclose the code that throws the exception with <code>when</code>.</p>
+{% highlight java %}when(() -> { /* code that throws an exception */ }){% endhighlight %}
+
+<p>3. Specify the exception's type.</p>
+{% highlight java %}when( … )
+  .thenA(FooBarException.class){% endhighlight %}
+
+<p>4. Optionally specify further assertions for the exception by using Hamcrest matchers.</p>
+{% highlight java %}when( … )
+  .thenA( … )
+  .that(hasProperty("message", startsWith("A")))
+  .and(hasProperty("message", contains("foo bar"))){% endhighlight %}
+
+<p>5. Execute the code and verify that the specified exception is thrown.</p>
+{% highlight java %}when( … )
+  .thenA( … )
+  …
+  .isThrown();{% endhighlight %}
+
+<h2>Use Vallado with older version of Java</h2>
+
+<p>You can use Vallado with an older version of Java, too. Therefore you have
+to creates <code>Statement</code> objects.</p>
+
+{% highlight java %}when(new Statement() {
+  public void evaluate() {
+    throw new RuntimeException();
+  }
+})
+  .thenA(RuntimeException.class)
+  .isThrown();{% endhighlight %}
