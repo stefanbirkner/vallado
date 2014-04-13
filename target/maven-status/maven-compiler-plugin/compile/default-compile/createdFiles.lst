@@ -1,0 +1,4 @@
+org/junit/contrib/java/lang/throwable/Statement.class
+org/junit/contrib/java/lang/throwable/Expectations.class
+org/junit/contrib/java/lang/throwable/ExpectExceptionType.class
+org/junit/contrib/java/lang/throwable/When.class
