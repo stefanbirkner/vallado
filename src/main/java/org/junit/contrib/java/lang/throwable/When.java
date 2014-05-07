@@ -1,18 +1,10 @@
 package org.junit.contrib.java.lang.throwable;
 
 /**
- * Vallado is a Java 8 library that helps you to test that your code throws the right exceptions. It
- * works with JUnit and TestNG.
- * <p>
+ * Vallado is a library that helps you to test that your code throws the right exceptions. It
+ * works with JUnit and TestNG and is designed for Java 8.
  * <p>An example is worth a thousands words.
- * <p>
  * <pre>
- * public class YourClass {
- *   public void methodThrowsException() {
- *       throw new RuntimeException();
- *   }
- * }
- *
  * public class YourClassTest {
  *   &#064;Test
  *   public void throwsException() {
@@ -22,18 +14,15 @@ package org.junit.contrib.java.lang.throwable;
  *   }
  * }
  * </pre>
- * <p>
  * <h3>Write an assertion</h3>
  * <p>An assertion consists of three parts. First you enclose your code under test with When's
  * when method. Afterwards you define your expectations about the exception that should be thrown
  * by this code and finally you verify that your code really throws such an exception. When has
  * a fluent API that joins these three steps together into a single statement.
- * <p>
  * <h4>Specify the code under test</h4>
  * <p>You start by wrapping the code that should throw the exception with the when method. You can
  * use a lambda expression.
  * <pre>when(() -> { /* code that throws an exception *&#47; })</pre>
- * <p>
  * <h4>Define the expectations about the exception</h4>
  * <p>You continue by defining the exception's type. The simplest approach is to use
  * {@link #aThrowable()}. If your exception is a real {@link Exception} you can use
@@ -43,16 +32,14 @@ package org.junit.contrib.java.lang.throwable;
  * <p>Now you can add additional expectations. Every expectation must be a hamcrest matcher.
  * <pre>
  *   when(...)
- *     .an(IllegalStateException.class)
+ *     .thenA(RuntimeException.class)
  *       .that(hasProperty("message", equalTo("wrongState"))
  *       .and(hasProperty("cause", is(nullValue()))
  * </pre>
- * <p>
  * <h4>Verify your code</h4>
  * <p>After specifying the expectations about the exception you have an object that has an
  * {@code isThrown} method. Start verification by calling this method.
- * <p>
- * <pre>when(...).an(...).isThrown();</pre>
+ * <pre>when(...).thenA(...).isThrown();</pre>
  */
 public class When {
     private final Statement statement;
