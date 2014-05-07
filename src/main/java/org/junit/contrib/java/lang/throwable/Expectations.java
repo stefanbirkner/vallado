@@ -17,7 +17,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
  * the exception's type. Afterwards she adds further expectations with
  * {@link #and(org.hamcrest.Matcher)}. Each expectation is a
  * {@link org.hamcrest.Matcher Hamcrest Matcher}.
- * <p>
  * <p>If the expectations are completely defined you call {@link #isThrown()}. Now the
  * {@code Expectations} verifies that the {@link Statement} throws an exception that matches the
  * expectations.

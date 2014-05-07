@@ -11,9 +11,10 @@ public class ExpectExceptionType {
     private final Expectations expectations;
 
     /**
-     * Create an {@link Expectations} that expects an
+     * Create an {@link Expectations} that expects a statement to throw an
      * exception of the specified type.
      *
+     * @param statement the statement that should throw the exception.
      * @param type the expected exception's type.
      */
     public ExpectExceptionType(Statement statement, Class<? extends Throwable> type) {

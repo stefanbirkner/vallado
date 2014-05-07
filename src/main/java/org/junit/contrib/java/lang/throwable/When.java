@@ -9,7 +9,7 @@ package org.junit.contrib.java.lang.throwable;
  *   &#064;Test
  *   public void throwsException() {
  *     YourClass theObject = new YourClass();
- *     when(() -> theObject.methodThrowsException())
+ *     when(() -&gt; theObject.methodThrowsException())
  *       .thenA(RuntimeException.class).isThrown();
  *   }
  * }
@@ -22,7 +22,7 @@ package org.junit.contrib.java.lang.throwable;
  * <h4>Specify the code under test</h4>
  * <p>You start by wrapping the code that should throw the exception with the when method. You can
  * use a lambda expression.
- * <pre>when(() -> { /* code that throws an exception *&#47; })</pre>
+ * <pre>when(() -&gt; { /* code that throws an exception *&#47; })</pre>
  * <h4>Define the expectations about the exception</h4>
  * <p>You continue by defining the exception's type. The simplest approach is to use
  * {@link #aThrowable()}. If your exception is a real {@link Exception} you can use
