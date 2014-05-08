@@ -8,7 +8,7 @@
     </parent>
     <groupId>com.github.stefanbirkner</groupId>
     <artifactId>vallado</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>vallado</name>
     <description>A library that supports testing exceptions with Java 8 Lambdas. Can be used with
