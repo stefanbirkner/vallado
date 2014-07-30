@@ -43,3 +43,11 @@ to creates <code>Statement</code> objects.</p>
 })
   .thenA(RuntimeException.class)
   .isThrown();{% endhighlight %}
+
+<h2>Alternatives</h2>
+
+Rafał Borowiec wrote the Blog article <a href="http://blog.codeleak.pl/2014/07/junit-testing-exception-with-java-8-and-lambda-expressions.html">JUnit:
+testing exception with Java 8 and Lambda Expressions</a>, where he describes a similar approach
+to test exception handling. His equivalent to the example from above is
+{% highlight java %}assertThrown(() -> throw new RuntimeException())
+  .isInstanceOf(RuntimeException.class);{% endhighlight %}
