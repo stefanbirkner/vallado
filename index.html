@@ -6,8 +6,8 @@ description: A library that supports exception testing with Java 8 Lambdas. Can 
 <p class="alert alert-warning">I strongly recommend to use
 <a href="https://github.com/stefanbirkner/fishbowl">Fishbowl</a> instead of Vallado, because it
 makes it possible to use the
-[AAA (Arrange-Act-Assert) pattern](http://c2.com/cgi/wiki?ArrangeActAssert) for writing tests
-for code that throws an exception.</p>
+<a href="http://c2.com/cgi/wiki?ArrangeActAssert">AAA (Arrange-Act-Assert) pattern</a>
+for writing tests for code that throws an exception.</p>
 
 <p>An example is worth a thousand words.</p>
 {% highlight java %}when(() -> throw new RuntimeException())
@@ -52,11 +52,11 @@ to creates <code>Statement</code> objects.</p>
 
 <h2>Alternatives</h2>
 
-<p class="alert alert-warning"><a href="https://github.com/stefanbirkner/fishbowl">Fishbowl</a>
+<p><a href="https://github.com/stefanbirkner/fishbowl">Fishbowl</a>
 makes it possible to use the
-[AAA (Arrange-Act-Assert) pattern](http://c2.com/cgi/wiki?ArrangeActAssert) for writing tests
-for code that throws an exception. The following snippet is the example from above but written
-with Fishbowl and Hamcrest</p>
+<a href="http://c2.com/cgi/wiki?ArrangeActAssert">AAA (Arrange-Act-Assert) pattern</a>
+for writing tests for code that throws an exception. The following snippet is the
+example from above but written with Fishbowl and Hamcrest</p>
 {% highlight java %}Throwable exception = exceptionThrownBy(() -> throw new RuntimeException());
 assertThat(exception, is(instanceOf(RuntimeException.class)));{% endhighlight %}
   
